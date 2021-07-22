@@ -16,7 +16,12 @@
             $controller->getPost($_GET['id']);
             break;
         case "addComment":
+            if (isset($_POST['edit']))
+                $controller->editComment($_POST['edit'], $author, $comment);
             $controller->addComment($_GET["id"], $author, $comment);
+            break;
+        case "edit":
+            $controller->modifyComment($_GET['edit']);
             break;
         default:
             $controller->listPosts();

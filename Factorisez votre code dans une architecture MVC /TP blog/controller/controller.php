@@ -32,13 +32,9 @@
 
         public function getPost($id)
         {
-            if ((int)$id === 0) {
-                header("location:index.php");
-                die("Une erreur est survenue avec l'id du post");
-            }
+            $this->getPostFromIdController($id);
             $post = $this->postDAO->getPost($id);
             $comments = $this->commentDAO->getComments($id);
-
             require('view/postView.php');
         }
 
@@ -52,7 +48,33 @@
                 header('Location: index.php?action=post&id=' . $postId);
             }
         }
-//
+
+
+        public function modifyComment($edit)
+        {
+            $valueEdit = $this->commentDAO->modifyComment($edit);
+            $this->getPostFromIdController($valueEdit['post_id']);
+            $post = $this->postDAO->getPost($valueEdit['post_id']);
+            $comments = $this->commentDAO->getComments($valueEdit['post_id']);
+            require('view/postView.php');
+            die();
+        }
+
+        /**
+         * @param $id
+         */
+        public function getPostFromIdController($id)
+        {
+            if ((int)$id === 0) {
+                header("location:index.php");
+                die("Une erreur est survenue avec l'id du post");
+            }
+        }
+
+        public function editComment($edit, $author, $comment)
+        {
+            $this->commentDAO->saveComment($edit, $author, $comment);
+        }
 
     }
 

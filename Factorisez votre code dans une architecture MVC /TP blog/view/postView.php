@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <title>Mon blog</title>
-    <link href="./public/css/style.css" rel="stylesheet" />
+    <link href="public/css/style.css" rel="stylesheet"/>
 </head>
 
 <body>
@@ -24,11 +24,12 @@
 <h2>Commentaires</h2>
 
 <?php
-    while ($comment = $comments->fetch())
-    {
+    while ($comment = $comments->fetch()) {
         ?>
         <p><strong><?= htmlspecialchars($comment['author']) ?></strong> le <?= $comment['comment_date_fr'] ?></p>
         <p><?= nl2br(htmlspecialchars($comment['comment'])) ?></p>
+        <button onclick="location.href='index.php?action=edit&edit=<?= $comment['id'] ?>'">Modifier le commentaire
+        </button>
         <?php
     }
 

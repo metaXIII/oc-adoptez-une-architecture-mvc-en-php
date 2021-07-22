@@ -45,4 +45,23 @@
             return true;
         }
 
+        public function modifyComment($edit)
+        {
+            try {
+                return $this->db->getDbConnection()->query("select * from comments where id = $edit")->fetch();
+            } catch (\Exception $exception) {
+                die($exception->getMessage());
+            }
+        }
+
+        public function saveComment($edit, $author, $comment)
+        {
+            try {
+                $this->db->getDbConnection()->prepare("update comments set author = :author, comment = :comment where id = :id")
+                    ->execute(["author" => $author, "comment" => $comment, "id" => $edit]);
+            } catch (\Exception $exception) {
+                die($exception->getMessage());
+            }
+        }
+
     }
